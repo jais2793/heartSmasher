@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heart Rain</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background-color: rgb(228, 186, 219);
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .btn-container {
+        position: relative;
+        top: 50%;
+      }
+
+      .heartBtnBg {
+        position: absolute;
+        background-color: rgb(252, 248, 248);
+        border: none;
+        display: inline-block;
+        height: 50px;
+        width: 50px;
+        cursor: pointer;
+        transform: rotate(-45deg);
+        z-index: 1; /* Ensure appears above pseudo-elements */
+        box-shadow: 0 0 10px 5px #fff;
+        
+      }
+
+      .heartBtnBg:before,
+      .heartBtnBg:after {
+        content: "";
+        background-color: rgb(255, 255, 255);
+        border-radius: 50%;
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        pointer-events: none; /* Allow clicks to pass through */
+        z-index: 1;
+        box-shadow: 0 0 10px 5px #fff;
+      }
+
+      .heartBtnBg:before {
+        top: -25px;
+        left: 0;
+        cursor: pointer;
+      }
+
+      .heartBtnBg:after {
+        left: 25px;
+        top: 0;
+        cursor: pointer;
+      }
+      
+      .heartBtn {
+        position: absolute;
+        background-color: red;
+        border: none;
+        display: inline-block;
+        height: 50px;
+        width: 50px;
+        cursor: pointer;
+        transform: rotate(-45deg);
+        z-index: 2; /* Ensure appears above pseudo-elements */
+        
+      }
+
+      .heartBtn:before,
+      .heartBtn:after {
+        content: "";
+        background-color: red;
+        border-radius: 50%;
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        pointer-events: none; /* Allow clicks to pass through */
+        z-index: 2;
+      }
+
+      .heartBtn:before {
+        top: -25px;
+        left: 0;
+        cursor: pointer;
+      }
+
+      .heartBtn:after {
+        left: 25px;
+        top: 0;
+        cursor: pointer;
+      }
+
+      .overlayBtn {
+        position: absolute;
+        top: -20px;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        width: 90px;
+        height: 80px;
+        z-index: 10;
+        transform: translateX(-21px);
+      }
+
+      #heartContainer {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .heart {
+        position: absolute;
+        background-color: red;
+        display: inline-block;
+        height: 30px;
+        margin: 0 10px;
+        top: 0;
+        transform: rotate(-45deg);
+        width: 30px;
+        animation: fall 1.5s linear infinite;
+        z-index: 999;
+      }
+
+      .heart:before,
+      .heart:after {
+        content: "";
+        background-color: red;
+        border-radius: 50%;
+        height: 30px;
+        position: absolute;
+        width: 30px;
+      }
+
+      .heart:before {
+        top: -15px;
+        left: 0;
+      }
+
+      .heart:after {
+        left: 15px;
+        top: 0;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(0vh) rotate(-45deg);
+        }
+        100% {
+          transform: translateY(100vh) rotate(-45deg);
+        }
+      }
+
+      @keyframes bloom {
+        0% {
+            box-shadow: 0 0 1px 5px #ff;   
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="btn-container">
+        <div class="heartBtnBg"></div>
+        <button class="heartBtn"></button>
+        <button class="overlayBtn" onclick="genHeart()"></button>
+      </div>
+
+      <div id="heartContainer"></div>
+    </div>
+
+    <script>
+      const heartContainer = document.getElementById("heartContainer");
+
+      function genHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * 100 + "vw";
+        heartContainer.appendChild(heart);
+
+        setTimeout(function () {
+          heart.remove();
+        }, 6000);
+      }
+    </script>
+  </body>
+</html>
